@@ -9,7 +9,6 @@ export default class MySQLConnection extends BaseAdapter implements IAdapter {
   constructor(private connection: Connection) {
     super()
     this.promisifiedQuery = promisify(this.connection.query)
-    this.escapeFn = this.connection.escape
   }
 
   async query(sqlQuery: string): Promise<Record<string, string>[]> {

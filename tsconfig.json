@@ -26,5 +26,11 @@
     "emitDecoratorMetadata": true,
     "lib": ["ES6"]
   },
-  "include": ["src"]
+  "include": ["src"],
+  "typedocOptions": {
+    "inputFiles": ["./src"],
+    "mode": "modules",
+    "out": "docs",
+    "exclude": ["**/*.test.ts"]
+  }
 }
