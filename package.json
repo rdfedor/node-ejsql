@@ -8,9 +8,8 @@
     "typecheck": "yarn tsc --project ./tsconfig-typecheck.json",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
     "format": "prettier --write 'src/**/*.{ts,tsx}'",
-    "build": "npx microbundle --target=node --compress=true",
-    "typedoc": "npx typedoc --tsconfig ./tsconfig.json",
-    "prepublish": "yarn run typecheck && yarn run test && yarn run build"
+    "build-dist": "npx microbundle --target=node --compress=true",
+    "typedoc": "npx typedoc --tsconfig ./tsconfig.json"
   },
   "author": "Roger Fedor <4864686-rdfedor@users.noreply.gitlab.com> (https://rdfedor.gitlab.io)",
   "main": "dist/index.js",
