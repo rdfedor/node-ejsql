@@ -15,7 +15,6 @@ stages:
 test:
   stage: test
   script:
-    - yarn rebuild
     - yarn install
     - yarn run lint
     - yarn run typecheck
