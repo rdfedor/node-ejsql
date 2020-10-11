@@ -1,0 +1,59 @@
+{
+  "name": "ejsql",
+  "version": "1.0.0",
+  "description": "EJSQL is a light weight cross-database interface that creates templatized SQL across MySQL, SQLite, MsSQL and Postgres.",
+  "scripts": {
+    "test": "yarn jest --detectOpenHandles",
+    "test-watch": "yarn jest --watchAll --detectOpenHandles",
+    "typecheck": "yarn tsc --project ./tsconfig-typecheck.json",
+    "lint": "eslint 'src/**/*.{ts,tsx}'",
+    "format": "prettier --write 'src/**/*.{ts,tsx}'",
+    "build": "npx microbundle --target=node --compress=true",
+    "prepublish": "yarn run typecheck && yarn run test && yarn run build"
+  },
+  "author": "Roger Fedor <4864686-rdfedor@users.noreply.gitlab.com> (https://rdfedor.gitlab.io)",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "es2019": "dist/es/index.js",
+  "module": "dist/index.es.js",
+  "umd:main": "dist/index.umd.js",
+  "license": "MIT",
+  "files": [
+    "dist/"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn run typecheck && yarn run format && git add -u",
+      "pre-push": "yarn run test"
+    }
+  },
+  "devDependencies": {
+    "@types/ejs": "^3.0.4",
+    "@types/jest": "^25.2.3",
+    "@types/mysql": "^2.15.15",
+    "@types/node": "^14.0.4",
+    "@types/sqlite3": "^3.1.6",
+    "@typescript-eslint/eslint-plugin": "^4.3.0",
+    "@typescript-eslint/parser": "^4.3.0",
+    "eslint": "^7.0.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-config-typescript": "^3.0.0",
+    "eslint-formatter-pretty": "^3.0.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-prettier": "^3.0.0",
+    "husky": "^4.3.0",
+    "jest": "^26.5.2",
+    "microbundle": "^0.12.4",
+    "prettier": "^2.1.0",
+    "sqlite3": "^5.0.0",
+    "ts-jest": "^26.4.1",
+    "ts-node": "^8.10.1",
+    "typescript": "^3.9.3"
+  },
+  "dependencies": {
+    "ejs": "^3.1.5",
+    "sqlstring": "^2.3.2"
+  }
+}

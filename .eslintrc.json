@@ -1,0 +1,21 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "import"],
+  "extends": [
+    "airbnb-base",
+    "prettier",
+    "plugin:@typescript-eslint/recommended",
+    "typescript/prettier",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript"
+  ],
+  "rules": {
+    "prettier/prettier": "error",
+    "import/no-unresolved": "error",
+    "import/extensions": "off",
+    "require-jsdoc": "off",
+    "semi": "off",
+    "@typescript-eslint/explicit-function-return-type": "off"
+  }
+}
