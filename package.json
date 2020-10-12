@@ -1,7 +1,7 @@
 {
   "name": "ejsql",
-  "version": "1.0.0",
-  "description": "EJSQL is a light weight cross-database interface that creates templatized SQL across MySQL, SQLite, MsSQL and Postgres.",
+  "version": "0.1.0",
+  "description": "EJSQL is a light weight cross-database interface that creates templatized SQL across MySQL, SQLite, MSSQL and Postgres.",
   "scripts": {
     "test": "yarn jest --detectOpenHandles",
     "test-watch": "yarn jest --watchAll --detectOpenHandles",
