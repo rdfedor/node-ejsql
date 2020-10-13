@@ -1,7 +1,7 @@
 image: node:lts
 
-before_script:
-  - yarn install
+include:
+  - template: Security/SAST.gitlab-ci.yml
 
 cache:
   paths:
@@ -15,35 +15,40 @@ stages:
 test:
   stage: test
   script:
-    - yarn install
+    - yarn install --cache-folder .yarn
     - yarn run lint
     - yarn run typecheck
-    - yarn run test
+    - yarn run test-cli
   artifacts:
     paths:
       - coverage
+    reports:
+      junit: junit.xml
   tags:
     - docker
 
 
-# publishToNpm:
-#   stage: publish
-#   only:
-#     - master
-#   script:
-# #    - npm set registry "https://$NPM_REGISTRY"
-# #    - npm set //$NPM_REGISTRY/:_authToken $NPM_AUTH_HEADER.$NPM_AUTH_PAYLOAD.$NPM_AUTH_SIGNATURE
-# #    - npm set //registry.npmjs.org/:_authToken=$NPMJS_AUTH_TOKEN
-# #    - npm prune --production
-# #    - npm publish
-#   tags:
-#     - docker
+publishToNpm:
+  stage: publish
+  only:
+    - master
+  script:
+    - yarn install --cache-folder .yarn
+#    - npm set registry "https://$NPM_REGISTRY"
+#    - npm set //$NPM_REGISTRY/:_authToken $NPM_AUTH_HEADER.$NPM_AUTH_PAYLOAD.$NPM_AUTH_SIGNATURE
+    - npm set //registry.npmjs.org/:_authToken=$NPMJS_AUTH_TOKEN
+    - npm prune --production
+    - npm publish
+  when: manual
+  tags:
+    - docker
 
 pages:
   stage: publish
   only:
     - master
   script:
+    - yarn install --cache-folder .yarn
     - yarn run typedoc
     - mkdir public && mv coverage/lcov-report public/ && mv docs public/
   artifacts:

@@ -38,13 +38,14 @@ describe('Loader', () => {
     expect(Loader.camelcaseString('multi-test-case')).toEqual('multiTestCase')
   })
 
-  it('should load a directory of ejs queries', async () => {
-    queries = await Loader.default(`${__dirname}/ejsql/`, mockAdapter)
+  it('should recusirvely load a directory of ejs queries', async () => {
+    queries = await Loader.default(`${__dirname}/ejsql/`, mockAdapter, true)
 
     expect(Object.keys(queries).length).toEqual(2)
     expect(queries.testLoader).toBeDefined()
     // eslint-disable-next-line dot-notation
     expect(queries.testLoader['next']).toBeDefined()
+    expect(queries.testLoader1).toBeDefined()
   })
 
   it('should submit sql when called', async () => {
@@ -60,5 +61,15 @@ describe('Loader', () => {
     })
 
     expect(spyResult).toContain(username)
+  })
+
+  it('should load a directory of ejs queries without recursion', async () => {
+    queries = await Loader.default(`${__dirname}/ejsql/`, mockAdapter)
+
+    expect(Object.keys(queries).length).toEqual(1)
+    expect(queries.testLoader).toBeDefined()
+    // eslint-disable-next-line dot-notation
+    expect(queries.testLoader['next']).not.toBeDefined()
+    expect(queries.testLoader1).not.toBeDefined()
   })
 })

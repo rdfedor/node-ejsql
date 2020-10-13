@@ -3,6 +3,10 @@ import { basename, join } from 'path'
 import { IAdapter } from './adapters/base'
 import Query, { CompiledQuery } from './query'
 
+/**
+ * Camel cases a given string
+ * @param strValue a string that needs to be formated in camelcase
+ */
 export function camelcaseString(strValue: string): string {
   return strValue
     .split('.')
@@ -12,9 +16,15 @@ export function camelcaseString(strValue: string): string {
     .join('')
 }
 
-async function loadDirectory(
+/**
+ * Scans a given directory for ejs files returning a object mapping the camelcased file names to a callable function
+ * @param dirPath Path to where the sql ejs templates are located
+ * @param connection Database handler
+ */
+export default async function loadDirectory(
   dirPath: string,
-  connection: IAdapter
+  connection: IAdapter,
+  recursiveDir = false
 ): Promise<Record<string, CompiledQuery | Record<string, CompiledQuery>>> {
   const files = (await fs.readdir(dirPath)).map((file) => join(dirPath, file))
 
@@ -41,40 +51,35 @@ async function loadDirectory(
     })
   )
 
-  const ejsDirectories = []
-  await Promise.all(
-    files.map(async (fullPath) => {
-      if (fullPath.split('.').pop() !== 'ejs') {
-        const stat = await fs.stat(fullPath)
+  if (recursiveDir) {
+    const ejsDirectories = []
+    await Promise.all(
+      files.map(async (fullPath) => {
+        if (fullPath.split('.').pop() !== 'ejs') {
+          const stat = await fs.stat(fullPath)
 
-        if (stat.isDirectory()) {
-          ejsDirectories.push(fullPath)
+          if (stat.isDirectory()) {
+            ejsDirectories.push(fullPath)
+          }
         }
-      }
-    })
-  )
+      })
+    )
 
-  await Promise.all(
-    ejsDirectories.map(async (directoryPath) => {
-      const directoryName = camelcaseString(basename(directoryPath))
-      const directoryTemplates = await loadDirectory(join(directoryPath, '/'), connection)
+    await Promise.all(
+      ejsDirectories.map(async (directoryPath) => {
+        const directoryName = camelcaseString(basename(directoryPath))
+        const directoryTemplates = await loadDirectory(join(directoryPath, '/'), connection, true)
 
-      if (!ejsTemplates[directoryName]) {
-        ejsTemplates[directoryName] = directoryTemplates
-      } else {
-        Object.keys(directoryTemplates).forEach((queryName) => {
-          ejsTemplates[directoryName][queryName] = directoryTemplates[queryName]
-        })
-      }
-    })
-  )
+        if (!ejsTemplates[directoryName]) {
+          ejsTemplates[directoryName] = directoryTemplates
+        } else {
+          Object.keys(directoryTemplates).forEach((queryName) => {
+            ejsTemplates[directoryName][queryName] = directoryTemplates[queryName]
+          })
+        }
+      })
+    )
+  }
 
   return ejsTemplates
-}
-
-export default async function initializeLoader(
-  dirPath: string,
-  connection: IAdapter
-): Promise<Record<string, CompiledQuery | Record<string, CompiledQuery>>> {
-  return loadDirectory(dirPath, connection)
 }

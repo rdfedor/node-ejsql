@@ -1,9 +1,10 @@
 {
   "name": "ejsql",
-  "version": "1.0.0",
-  "description": "EJSQL is a light weight cross-database interface that creates templatized SQL across MySQL, SQLite, MsSQL and Postgres.",
+  "version": "0.1.0",
+  "description": "EJSQL is a light weight cross-database interface that creates templatized SQL across MySQL, SQLite, MSSQL and Postgres.",
   "scripts": {
     "test": "yarn jest --detectOpenHandles",
+    "test-cli": "yarn jest --detectOpenHandles --forceExit --watchAll=false --reporters='jest-junit'",
     "test-watch": "yarn jest --watchAll --detectOpenHandles",
     "typecheck": "yarn tsc --project ./tsconfig-typecheck.json",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
@@ -18,6 +19,9 @@
   "module": "dist/index.es.js",
   "umd:main": "dist/index.umd.js",
   "license": "MIT",
+  "bin": {
+    "ejsql": "./bin/ejsql.js"
+  },
   "files": [
     "dist/"
   ],
@@ -30,8 +34,10 @@
   "devDependencies": {
     "@types/ejs": "^3.0.4",
     "@types/jest": "^25.2.3",
+    "@types/mssql": "^6.0.5",
     "@types/mysql": "^2.15.15",
     "@types/node": "^14.0.4",
+    "@types/pg": "^7.14.5",
     "@types/sqlite3": "^3.1.6",
     "@typescript-eslint/eslint-plugin": "^4.3.0",
     "@typescript-eslint/parser": "^4.3.0",
@@ -45,7 +51,11 @@
     "eslint-plugin-prettier": "^3.0.0",
     "husky": "^4.3.0",
     "jest": "^26.5.2",
+    "jest-junit": "^12.0.0",
+    "jest-mock-extended": "^1.0.10",
     "microbundle": "^0.12.4",
+    "mssql": "^6.2.3",
+    "pg": "^8.4.1",
     "prettier": "^2.1.0",
     "sqlite3": "^5.0.0",
     "ts-jest": "^26.4.1",
