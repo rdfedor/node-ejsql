@@ -11,9 +11,7 @@ export default class SQLiteConnection extends BaseAdapter implements IAdapter {
     this.promisifiedQuery = promisify(this.connection.all)
   }
 
-  async query(sqlQuery: string /* , parameters = [] */): Promise<Record<string, string>[]> {
-    const result = await this.promisifiedQuery(sqlQuery)
-
-    return result
+  async query(sqlQuery: string): Promise<Record<string, string>[]> {
+    return this.promisifiedQuery.apply(this.connection, [sqlQuery])
   }
 }

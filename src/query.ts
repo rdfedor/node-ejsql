@@ -2,7 +2,7 @@ import { promises as fs } from 'fs'
 import { IAdapter } from './adapters/base'
 import parse from './parser'
 
-export type CompiledQuery = (parameters?: Record<string, string>) => Promise<unknown>
+export type CompiledQuery = (parameters?: Record<string, unknown>) => Promise<unknown>
 
 /**
  * Class that reads a file based ejs template
@@ -19,7 +19,7 @@ export default class Query {
 
     const ejsTemplate = parse(rawText.toString())
 
-    return async (parameters: Record<string, string> = {}): Promise<unknown> => {
+    return async (parameters: Record<string, unknown> = {}): Promise<unknown> => {
       return this.connection.query(await ejsTemplate(parameters))
     }
   }

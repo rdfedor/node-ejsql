@@ -1,0 +1,13 @@
+CREATE TABLE users(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL
+);
+
+INSERT INTO users (name, email, gender) 
+VALUES
+('John Doe', 'johndoe@example.com'),
+('Jane Doe', 'janedoe@example.com'),
+('Trixy Doe', 'trixy@example.com');
+
+SELECT * FROM users;

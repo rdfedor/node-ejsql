@@ -12,7 +12,7 @@ export default class MySQLConnection extends BaseAdapter implements IAdapter {
   }
 
   async query(sqlQuery: string): Promise<Record<string, string>[]> {
-    const result = await this.promisifiedQuery(sqlQuery)
+    const result = await this.promisifiedQuery.apply(this.connection, [sqlQuery])
 
     if (result.insertId) {
       this.lastInsertId = result.insertId
