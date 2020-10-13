@@ -3,9 +3,6 @@ image: node:lts
 include:
   - template: Security/SAST.gitlab-ci.yml
 
-before_script:
-  - yarn install --cache-folder .yarn
-
 cache:
   paths:
     - .yarn
@@ -18,6 +15,7 @@ stages:
 test:
   stage: test
   script:
+    - yarn install --cache-folder .yarn
     - yarn run lint
     - yarn run typecheck
     - yarn run test
@@ -33,6 +31,7 @@ publishToNpm:
   only:
     - master
   script:
+    - yarn install --cache-folder .yarn
 #    - npm set registry "https://$NPM_REGISTRY"
 #    - npm set //$NPM_REGISTRY/:_authToken $NPM_AUTH_HEADER.$NPM_AUTH_PAYLOAD.$NPM_AUTH_SIGNATURE
     - npm set //registry.npmjs.org/:_authToken=$NPMJS_AUTH_TOKEN
@@ -47,6 +46,7 @@ pages:
   only:
     - master
   script:
+    - yarn install --cache-folder .yarn
     - yarn run typedoc
     - mkdir public && mv coverage/lcov-report public/ && mv docs public/
   artifacts:
