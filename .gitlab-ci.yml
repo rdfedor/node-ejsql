@@ -22,6 +22,8 @@ test:
   artifacts:
     paths:
       - coverage
+    reports:
+      junit: junit.xml
   tags:
     - docker
 

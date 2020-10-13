@@ -4,6 +4,7 @@
   "description": "EJSQL is a light weight cross-database interface that creates templatized SQL across MySQL, SQLite, MSSQL and Postgres.",
   "scripts": {
     "test": "yarn jest --detectOpenHandles",
+    "test-cli": "yarn jest --detectOpenHandles --forceExit --watchAll=false --reporters='jest-junit'",
     "test-watch": "yarn jest --watchAll --detectOpenHandles",
     "typecheck": "yarn tsc --project ./tsconfig-typecheck.json",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
@@ -50,6 +51,7 @@
     "eslint-plugin-prettier": "^3.0.0",
     "husky": "^4.3.0",
     "jest": "^26.5.2",
+    "jest-junit": "^12.0.0",
     "jest-mock-extended": "^1.0.10",
     "microbundle": "^0.12.4",
     "mssql": "^6.2.3",
