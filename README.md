@@ -1,6 +1,6 @@
 # EJSQL
 
-[![Package Version](https://img.shields.io/github/package-json/v/rdfedor/node-ejsql)](https://gitlab.com/rdfedor/node-ejsql) [![License](https://img.shields.io/github/license/rdfedor/node-ejsql.svg)](https://gitlab.com/rdfedor/node-ejsql/blob/master/LICENSE) [![pipeline status](https://gitlab.com/rdfedor/node-ejsql/badges/master/pipeline.svg)](https://gitlab.com/rdfedor/node-ejsql/-/commits/master) [![coverage report](https://gitlab.com/rdfedor/node-ejsql/badges/master/coverage.svg)](https://rdfedor.gitlab.io/node-ejsql/lcov-report/)![GitHub top language](https://img.shields.io/github/languages/top/rdfedor/node-ejsql)
+[![Package Version](https://img.shields.io/github/package-json/v/rdfedor/node-ejsql)](https://gitlab.com/rdfedor/node-ejsql) [![License](https://img.shields.io/github/license/rdfedor/node-ejsql.svg)](https://gitlab.com/rdfedor/node-ejsql/blob/master/LICENSE) [![pipeline status](https://gitlab.com/rdfedor/node-ejsql/badges/master/pipeline.svg)](https://gitlab.com/rdfedor/node-ejsql/-/commits/master) [![coverage report](https://gitlab.com/rdfedor/node-ejsql/badges/master/coverage.svg)](https://rdfedor.gitlab.io/node-ejsql/lcov-report/)[![GitHub top language](https://img.shields.io/github/languages/top/rdfedor/node-ejsql)](https://gitlab.com/rdfedor/node-ejsql)
 
 EJSQL is a light weight cross-database interface that creates templatized SQL across MySQL, SQLite, MSSQL and Postgres. API documentation is available [here](https://rdfedor.gitlab.io/node-ejsql/docs/).
 

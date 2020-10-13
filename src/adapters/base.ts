@@ -1,5 +1,5 @@
 export interface IAdapter {
-  query(sqlQuery: string): Promise<Record<string, string>[]>
+  query(sqlQuery: string): Promise<unknown>
 }
 
 export default class BaseAdapter {

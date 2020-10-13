@@ -1,5 +1,5 @@
 /* eslint-disable dot-notation */
-import { Template } from 'ejs'
+import { Template, Options } from 'ejs'
 import * as SqlString from 'sqlstring'
 
 const ejsScanLine = Template.prototype['scanLine']
@@ -48,9 +48,14 @@ Template.prototype['scanLine'] = function onInjectedScanLine(line) {
   }
 }
 
+/**
+ * Returns a function that allows the generation of a sql template
+ * @param template Template text to parse as a sql template
+ * @param options EJS Options
+ */
 export default function parse(
   template: string,
-  options: ejs.Options = {}
+  options: Options = {}
 ): ejs.AsyncTemplateFunction | ejs.TemplateFunction {
   const templ = new Template(template, {
     ...options,
