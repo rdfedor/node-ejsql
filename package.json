@@ -1,5 +1,5 @@
 {
-  "name": "ejsql",
+  "name": "node-ejsql",
   "version": "0.1.0",
   "description": "EJSQL is a light weight cross-database interface that creates templatized SQL across MySQL, SQLite, MSSQL and Postgres.",
   "scripts": {
@@ -19,9 +19,6 @@
   "module": "dist/index.es.js",
   "umd:main": "dist/index.umd.js",
   "license": "MIT",
-  "bin": {
-    "ejsql": "./bin/ejsql.js"
-  },
   "files": [
     "dist/"
   ],
