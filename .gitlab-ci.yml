@@ -18,7 +18,7 @@ test:
     - yarn install --cache-folder .yarn
     - yarn run lint
     - yarn run typecheck
-    - yarn run test
+    - yarn run test-cli
   artifacts:
     paths:
       - coverage
