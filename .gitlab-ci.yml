@@ -55,7 +55,7 @@ pages:
   script:
     - yarn install --cache-folder .yarn
     - yarn run typedoc
-    - mkdir public && mv coverage/lcov-report public/ && mv docs public/
+    - mkdir public && mv coverage/lcov-report public/ && mv docs/* public/
   cache:
     paths:
       - .yarn
