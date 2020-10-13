@@ -2,11 +2,8 @@ image: node:lts
 
 include:
   - template: Security/SAST.gitlab-ci.yml
-
-cache:
-  paths:
-    - .yarn
-    - node_modules/
+  - template: Dependency-Scanning.gitlab-ci.yml
+  - template: Security/License-Scanning.gitlab-ci.yml
 
 stages:
   - test
@@ -24,6 +21,10 @@ test:
       - coverage
     reports:
       junit: junit.xml
+  cache:
+    paths:
+      - .yarn
+      - node_modules/
   tags:
     - docker
 
@@ -39,6 +40,10 @@ publishToNpm:
     - npm set //registry.npmjs.org/:_authToken=$NPMJS_AUTH_TOKEN
     - npm prune --production
     - npm publish
+  cache:
+    paths:
+      - .yarn
+      - node_modules/
   when: manual
   tags:
     - docker
@@ -51,6 +56,10 @@ pages:
     - yarn install --cache-folder .yarn
     - yarn run typedoc
     - mkdir public && mv coverage/lcov-report public/ && mv docs public/
+  cache:
+    paths:
+      - .yarn
+      - node_modules/
   artifacts:
     paths:
       - public
