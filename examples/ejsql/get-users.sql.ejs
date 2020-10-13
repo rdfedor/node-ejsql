@@ -1,0 +1,9 @@
+SELECT 
+    * 
+FROM users
+WHERE 1 = 1
+{% if (typeof id !== "undefined" && Array.isArray(id)) { %}
+   AND id IN ({%: id %})
+{% } else if (typeof id !== "undefined") { %}
+   AND id = {%: id %}
+{% } %}

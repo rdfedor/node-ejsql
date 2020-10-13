@@ -62,7 +62,8 @@ export default function parse(
     ...{
       openDelimiter: '{',
       closeDelimiter: '}',
-      client: true
+      client: true,
+      async: true
     }
   })
 

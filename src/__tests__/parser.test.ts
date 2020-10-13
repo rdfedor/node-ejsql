@@ -11,7 +11,7 @@ describe('Parser', () => {
       AND createdAt < {%- 'CURRENT_TIMESTAMP' %}
     `)
 
-    const sql = template({ ids: [1, 2, 3], email: '@gmail.com' })
+    const sql = await template({ ids: [1, 2, 3], email: '@gmail.com' })
     expect(sql).toContain("'%@gmail.com'")
     expect(sql).toContain('IN 1,2,3')
   })

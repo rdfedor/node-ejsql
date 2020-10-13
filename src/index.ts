@@ -1,4 +1,4 @@
-export * as Loader from './loader'
 export * as Adapters from './adapters'
-export * as Query from './query'
-export * as Parser from './parser'
+export { default as Loader } from './loader'
+export { default as Query } from './query'
+export { default as Parser } from './parser'
