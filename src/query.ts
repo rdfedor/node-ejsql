@@ -7,7 +7,7 @@ export type CompiledQuery = (parameters?: Record<string, unknown>) => Promise<un
 /**
  * Class that reads a file based ejs template
  */
-export default class Query {
+export class Query {
   // eslint-disable-next-line no-useless-constructor
   constructor(private templatePath: string, private connection: IAdapter) {}
 
@@ -20,7 +20,12 @@ export default class Query {
     const ejsTemplate = parse(rawText.toString())
 
     return async (parameters: Record<string, unknown> = {}): Promise<unknown> => {
-      return this.connection.query(await ejsTemplate(parameters))
+      const template = await ejsTemplate(parameters)
+      return this.connection.query(template)
     }
   }
+}
+
+export default async function getQuery(templatePath: string, connection: IAdapter): Promise<CompiledQuery> {
+  return new Query(templatePath, connection).compile()
 }

@@ -1,0 +1,11 @@
+INSERT INTO users (name, email) 
+VALUES
+{% if (typeof user !== 'undefined') { users = [user] } %}
+{% if (typeof users !== 'undefined') { %}
+    {% for (var x = 0 ; x < users.length ; x++) { %}
+        ({%: this.escape(users[x][0]) %}, {%: this.escape(users[x][1]) %})
+        {% if (x + 1 < users.length) { %}
+            ,
+        {% } %}
+    {% } %}
+{% } %}
