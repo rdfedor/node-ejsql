@@ -1,13 +1,13 @@
 import { promises as fs } from 'fs'
 import { basename, join } from 'path'
 import { IAdapter } from './adapters/base'
-import Query, { CompiledQuery } from './query'
+import getQuery, { CompiledQuery } from './query'
 
 /**
  * Camel cases a given string
  * @param strValue a string that needs to be formated in camelcase
  */
-export function camelcaseString(strValue: string): string {
+export function camelCaseString(strValue: string): string {
   return strValue
     .split('.')
     .shift()
@@ -45,9 +45,8 @@ export default async function loadDirectory(
 
   await Promise.all(
     ejsTemplatePaths.map(async (ejsPath) => {
-      const queryName = camelcaseString(basename(ejsPath))
-      const query = new Query(ejsPath, connection)
-      ejsTemplates[queryName] = await query.compile()
+      const queryName = camelCaseString(basename(ejsPath))
+      ejsTemplates[queryName] = await getQuery(ejsPath, connection)
     })
   )
 
@@ -67,7 +66,7 @@ export default async function loadDirectory(
 
     await Promise.all(
       ejsDirectories.map(async (directoryPath) => {
-        const directoryName = camelcaseString(basename(directoryPath))
+        const directoryName = camelCaseString(basename(directoryPath))
         const directoryTemplates = await loadDirectory(join(directoryPath, '/'), connection, true)
 
         if (!ejsTemplates[directoryName]) {

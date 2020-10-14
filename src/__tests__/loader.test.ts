@@ -32,10 +32,10 @@ describe('Loader', () => {
   })
 
   it('should camelcase filenames', () => {
-    expect(Loader.camelcaseString('test-case')).toEqual('testCase')
-    expect(Loader.camelcaseString('testCase')).toEqual('testCase')
-    expect(Loader.camelcaseString('TestCase')).toEqual('TestCase')
-    expect(Loader.camelcaseString('multi-test-case')).toEqual('multiTestCase')
+    expect(Loader.camelCaseString('test-case')).toEqual('testCase')
+    expect(Loader.camelCaseString('testCase')).toEqual('testCase')
+    expect(Loader.camelCaseString('TestCase')).toEqual('TestCase')
+    expect(Loader.camelCaseString('multi-test-case')).toEqual('multiTestCase')
   })
 
   it('should recusirvely load a directory of ejs queries', async () => {

@@ -60,6 +60,7 @@ WHERE 1=1
 
 ```
 const mysql = require("mysql")
+const { join } = require('path')
 const { Adapters, Loader } = require("node-ejsql")
 
 // Create a connection the adapter will use
@@ -72,7 +73,7 @@ const connection = mysql.createConnection({
 const adapter = new Adapters.MySQLConnection(connection)
 
 // Load our queries
-const queries = Loader('./ejsql', adapter)
+const queries = Loader(join(__dirname, './ejsql'), adapter)
 
 // Do something
 async function foo() {
@@ -86,6 +87,8 @@ async function foo() {
 }
 foo()
 ```
+
+Additional examples can be found [here](https://gitlab.com/rdfedor/node-ejsql/-/tree/master/examples) and API documentation can be found [here](https://rdfedor.gitlab.io/node-ejsql/).
 
 ## Bugs
 
