@@ -38,8 +38,9 @@ publishToNpm:
 #    - npm set registry "https://$NPM_REGISTRY"
 #    - npm set //$NPM_REGISTRY/:_authToken $NPM_AUTH_HEADER.$NPM_AUTH_PAYLOAD.$NPM_AUTH_SIGNATURE
     - npm set //registry.npmjs.org/:_authToken=$NPMJS_AUTH_TOKEN
-    - npm prune --production
-    - npm publish
+    - yarn build-cleanup
+    - yarn build-dist
+    - yarn publish
   cache:
     paths:
       - .yarn

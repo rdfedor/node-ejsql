@@ -36,6 +36,35 @@ EJSQL leverages [Embedded JavaScript](https://ejs.co/) to handle templating of t
 * escape template values using `{%- 'test' %}`
 * creates format objects syntax using `{%: [1,2,3] %}`
 
+### Command Line Interface
+
+EJSQL comes with a command line interface that allows for an sql.ejs file to be ran from command line.  If the package is installed globally, `ejsql` should be available via command line and if installed locally, it can be accessed through `npx ejsql`.
+
+```
+Usage: ejsql [options] <filename> [...filenames]
+
+Runs a templatized sql.ejs file against a database. When using an adapter, make sure the adapter's companion module is installed (mssql, mysql, sqlite3, pg). See https://rdfedor.gitlab.io/node-ejsql/ for additional details.
+
+Options:
+  -V, --version                              output the version number
+  -a, --adapter <database_adapter>           The database type mssql, mysql, pg, sqlite (default: "sqlite")
+  -h, --host <database_host>                 The path to the database host (default: "localhost")
+  -n, --dbname <database_name>               The name of the default database (default: "master")
+  -u, --user <database_user>                 The username associated with the database login (default: "root")
+  -p, --pass <database_pass>                 The password associated with the database login (default: "")
+  -d, --data [var1=val1,var2=val2,...]       Pass data to the template as a name value pair (default: "")
+  -c, --connector [var1=val1,var2=val2,...]  Add additional options for the database connection (default: "")
+  -s, --skipHeaders                          Disables the output of the headers (default: false)
+  --help                                     display help for command
+```
+
+## Supported Adapters
+
+  - [mssql](https://www.npmjs.com/package/mssql)
+  - [mysql](https://www.npmjs.com/package/mysql)
+  - [pg](https://www.npmjs.com/package/pg)
+  - [sqlite3](https://www.npmjs.com/package/sqlite3)
+
 ## Quickstart
 
 This quickstart assumes that there's an existing database and table called users with data.

@@ -1,0 +1,154 @@
+#!/usr/bin/env node
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable @typescript-eslint/no-var-requires */
+
+const { join } = require('path')
+const { Command } = require('commander')
+const sqlite3 = require('sqlite3')
+const sql = require('mssql')
+const mysql = require('mysql')
+const { Pool } = require('pg')
+const ejsql = require('../dist')
+const package = require('../package.json')
+
+let sqlite = false
+
+if (sqlite3 && sqlite3.verbose) {
+  sqlite = sqlite3.verbose()
+}
+
+const program = new Command()
+
+const { Adapters, getQuery } = ejsql
+
+const adapterMap = {}
+
+Object.keys(Adapters).forEach((value) => {
+  adapterMap[value.substr(0, value.length - 10).toLowerCase()] = value
+})
+
+program
+  .version(package.version)
+  .arguments('<filename> [...filenames]')
+  .description(
+    "Runs a templatized sql.ejs file against a database. When using an adapter, make sure the adapter's " +
+    'companion module is installed (mssql, mysql, sqlite3, pg). See https://rdfedor.gitlab.io/node-ejsql/ ' +
+    'for additional details.'
+  )
+  .option('-a, --adapter <database_adapter>', `The database type ${Object.keys(adapterMap).join(', ')}`, 'sqlite')
+  .option('-h, --host <database_host>', 'The path to the database host', 'localhost')
+  .option('-n, --dbname <database_name>', 'The name of the default database', 'master')
+  .option('-u, --user <database_user>', 'The username associated with the database login', 'root')
+  .option('-p, --pass <database_pass>', 'The password associated with the database login', '')
+  .option('-d, --data [var1=val1,var2=val2,...]', 'Provides data to the template as a name value pair', '')
+  .option('-c, --connector [var1=val1,var2=val2,...]', 'Provides additional options for the database connection', '')
+  .option('-s, --skipHeaders', 'Disables the output of the headers', false)
+
+program.parse(process.argv)
+
+const parseOptions = (strValue) => {
+  const data = {}
+
+  strValue.split(',').forEach((varString) => {
+    const [name, value] = varString.split('=')
+    if (value) {
+      data[name.trim()] = value.trim()
+    } else {
+      data[name.trim()] = true
+    }
+  })
+
+  return data
+}
+
+const { adapter, host, dbname, user, pass, connector, data: dataString, skipHeaders } = program.opts()
+
+const filenames = program.args
+const data = parseOptions(dataString)
+const connectorOptions = parseOptions(connector)
+
+async function runQuery() {
+  let connectorAdapter = null
+  try {
+    switch (adapter.toLowerCase()) {
+      case 'sqlite':
+        if (!sqlite) {
+          throw new Error('sqlite3 not installed')
+        }
+        // eslint-disable-next-line new-cap
+        connectorAdapter = new Adapters.SQLiteConnection(new sqlite.Database(connector || ':memory:'))
+        break
+      case 'mssql':
+        if (!sql || !sql.connect) {
+          throw new Error('mssql not installed')
+        }
+        connectorAdapter = new Adapters.MSSQLConnection(
+          await sql.connect({
+            ...{
+              user,
+              password: pass,
+              server: host,
+              database: dbname
+            },
+            ...connectorOptions
+          })
+        )
+        break
+      case 'mysql':
+        if (!mysql || !mysql.createConnection) {
+          throw new Error('mysql not installed')
+        }
+        connectorAdapter = new Adapters.MySQLConnection(
+          mysql
+            .createConnection({
+              ...{
+                host,
+                user,
+                password: pass,
+                database: dbname
+              },
+              ...connectorOptions
+            })
+            .connect()
+        )
+        break
+      case 'pg':
+        if (!Pool) {
+          throw new Error('mysql not installed')
+        }
+        connectorAdapter = new Adapters.PGConnection(
+          new Pool({
+            ...{
+              host,
+              user,
+              password: pass,
+              database: dbname
+            },
+            ...connectorOptions
+          })
+        )
+        break
+      default:
+        throw new Error(`Unknown adapter type ${adapter}. Available adapters are ${Object.keys(adapterMap).join(', ')}`)
+    }
+
+    filenames.forEach(async (filename) => {
+      const query = await getQuery(join(__dirname, filename), connectorAdapter)
+      const rows = await query(data)
+
+      if (rows && rows.length > 0 && !skipHeaders) {
+        const firstRow = rows.shift()
+
+        console.log(Object.keys(firstRow).join('|'))
+        console.log(Object.values(firstRow).join('|'))
+      }
+
+      rows.forEach((row) => console.log(Object.values(row).join('|')))
+    })
+  } catch (err) {
+    console.log(err)
+    process.exit(-1)
+  }
+}
+
+runQuery()
