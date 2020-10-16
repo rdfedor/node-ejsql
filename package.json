@@ -1,6 +1,6 @@
 {
   "name": "node-ejsql",
-  "version": "0.2.1",
+  "version": "1.0.0",
   "description": "EJSQL is a light weight cross-database interface that creates templatized SQL across MySQL, SQLite, MSSQL and Postgres.",
   "scripts": {
     "test": "yarn jest --detectOpenHandles",
@@ -9,8 +9,8 @@
     "typecheck": "yarn tsc --project ./tsconfig-typecheck.json",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
     "format": "prettier --write 'src/**/*.{ts,tsx}'",
-    "build-dist": "npx microbundle --target=node --compress=true && yarn install --production",
-    "build-cleanup": "rm -Rf dist public coverage docs tmp examples",
+    "build-dist": "yarn build-cleanup && npx microbundle --target=node --compress=true && yarn install --production",
+    "build-cleanup": "rm -Rf dist",
     "typedoc": "npx typedoc --tsconfig ./tsconfig.json"
   },
   "homepage": "https://gitlab.com/rdfedor/node-ejsql/",
@@ -29,6 +29,7 @@
   "umd:main": "dist/index.umd.js",
   "license": "MIT",
   "files": [
+    "bin/",
     "dist/"
   ],
   "bin": {
