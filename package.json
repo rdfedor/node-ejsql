@@ -37,8 +37,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn run typecheck && yarn run format && git add -u",
-      "pre-push": "yarn run test"
+      "pre-commit": "yarn typecheck && yarn format && yarn lint && git add -u",
+      "pre-push": "yarn test"
     }
   },
   "devDependencies": {
