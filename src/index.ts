@@ -1,3 +1,5 @@
+export { IAdapter } from './adapters/base'
+export { default as BaseAdapter } from './adapters/base'
 export * as Adapters from './adapters'
 export { default as Loader } from './loader'
 export { default as getQuery } from './query'

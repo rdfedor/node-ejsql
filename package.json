@@ -1,6 +1,6 @@
 {
   "name": "node-ejsql",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "EJSQL is a light weight cross-database interface that creates templatized SQL across MySQL, SQLite, MSSQL and Postgres.",
   "scripts": {
     "test": "yarn jest --detectOpenHandles",
@@ -9,8 +9,17 @@
     "typecheck": "yarn tsc --project ./tsconfig-typecheck.json",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
     "format": "prettier --write 'src/**/*.{ts,tsx}'",
-    "build-dist": "npx microbundle --target=node --compress=true",
+    "build-dist": "npx microbundle --target=node --compress=true && yarn install --production",
+    "build-cleanup": "rm -Rf dist public coverage docs tmp examples",
     "typedoc": "npx typedoc --tsconfig ./tsconfig.json"
+  },
+  "homepage": "https://gitlab.com/rdfedor/node-ejsql/",
+  "bugs": {
+    "url": "https://gitlab.com/rdfedor/node-ejsql/-/issues/new"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/rdfedor/node-ejsql.git"
   },
   "author": "Roger Fedor <4864686-rdfedor@users.noreply.gitlab.com> (https://rdfedor.gitlab.io)",
   "main": "dist/index.js",
@@ -22,6 +31,9 @@
   "files": [
     "dist/"
   ],
+  "bin": {
+    "ejsql": "./bin/ejsql"
+  },
   "husky": {
     "hooks": {
       "pre-commit": "yarn run typecheck && yarn run format && git add -u",
@@ -52,6 +64,7 @@
     "jest-mock-extended": "^1.0.10",
     "microbundle": "^0.12.4",
     "mssql": "^6.2.3",
+    "mysql": "^2.18.1",
     "pg": "^8.4.1",
     "prettier": "^2.1.0",
     "sqlite3": "^5.0.0",
@@ -61,6 +74,7 @@
     "typescript": "^3.9.3"
   },
   "dependencies": {
+    "commander": "^6.1.0",
     "ejs": "^3.1.5",
     "sqlstring": "^2.3.2"
   }

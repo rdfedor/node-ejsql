@@ -1,4 +1,5 @@
 // eslint-disable-next-line import/no-unresolved
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { Connection } from 'mysql'
 import { promisify } from 'util'
 import BaseAdapter, { IAdapter } from './base'
