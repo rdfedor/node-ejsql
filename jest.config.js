@@ -29,7 +29,7 @@ module.exports = {
   // preset: 'ts-jest/presets/js-with-ts',
   // which files to test and which to ignore
   testMatch: ['**/__tests__/*.test.(ts|tsx)'],
-  testPathIgnorePatterns: ['/node_modules/', '/tmp/', '/coverage/', '/stories/', '/\\.storybook/', '/examples'],
+  testPathIgnorePatterns: ['/node_modules/', '/tmp/', '/coverage/', '/stories/', '/\\.storybook/', '/examples', '/bin'],
   // don't watch for file changes in node_modules
   watchPathIgnorePatterns: ['/node_modules/'],
   // jest automock settings
@@ -41,7 +41,7 @@ module.exports = {
   // coverage settings
   collectCoverage: NO_COVERAGE === false,
   collectCoverageFrom: NO_COVERAGE ? [] : ['**/*.{ts,tsx}', '!**/*.d.ts', '!**/node_modules/**'],
-  coveragePathIgnorePatterns: ['/node_modules/', '\\.json$', '/__tests__/', '/stories/', '/\\.storybook/', '/examples'],
+  coveragePathIgnorePatterns: ['/node_modules/', '\\.json$', '/__tests__/', '/stories/', '/\\.storybook/', '/examples', '/bin'],
 
   globals: {
     'ts-jest': {

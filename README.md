@@ -18,12 +18,12 @@ Open your terminal and type in
 
 via npm,
 ```sh
-$ npm install --save git+https://gitlab.com/rdfedor/node-ejsql.git
+$ npm install --save node-ejsql
 ```
 
 or via Yarn,
 ```sh
-$ yarn add git+https://gitlab.com/rdfedor/node-ejsql.git
+$ yarn add node-ejsql
 ```
 
 ## Usage

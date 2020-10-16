@@ -1,6 +1,6 @@
 {
   "name": "node-ejsql",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "EJSQL is a light weight cross-database interface that creates templatized SQL across MySQL, SQLite, MSSQL and Postgres.",
   "scripts": {
     "test": "yarn jest --detectOpenHandles",
