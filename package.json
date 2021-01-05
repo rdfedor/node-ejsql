@@ -1,6 +1,6 @@
 {
   "name": "node-ejsql",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "EJSQL is a light weight cross-database interface that creates templatized SQL across MySQL, SQLite, MSSQL and Postgres.",
   "scripts": {
     "test": "yarn jest --detectOpenHandles",
@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "@types/ejs": "^3.0.4",
-    "@types/jest": "^25.2.3",
+    "@types/jest": "^26.0.14",
     "@types/mssql": "^6.0.5",
     "@types/mysql": "^2.15.15",
     "@types/node": "^14.0.4",
@@ -55,7 +55,7 @@
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-config-typescript": "^3.0.0",
-    "eslint-formatter-pretty": "^3.0.1",
+    "eslint-formatter-pretty": "^4.0.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-prettier": "^3.0.0",
@@ -70,9 +70,9 @@
     "prettier": "^2.1.0",
     "sqlite3": "^5.0.0",
     "ts-jest": "^26.4.1",
-    "ts-node": "^8.10.1",
+    "ts-node": "^9.0.0",
     "typedoc": "^0.19.2",
-    "typescript": "^3.9.3"
+    "typescript": "^4.0.3"
   },
   "dependencies": {
     "commander": "^6.1.0",
